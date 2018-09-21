@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ocelot_securitytoken_mysql.sql" />
+    <None Remove="Storage\OcelotSecurityStorageDbContent.cs~RF5ca58993.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ocelot_securitytoken_mysql.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.3" />
+    <PackageReference Include="Ocelot" Version="13.0.0" />
+  </ItemGroup>
+
+</Project>
