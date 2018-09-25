@@ -36,10 +36,10 @@ namespace Ocelot.Security.AuthorizationToken
 
             this.LoadBlacklistToken();
 
-            if (_cache.TryGetValue(tokne, out AuthorizationToken tokenModel))
+            if (_cache.TryGetValue(tokne, out string warnInfo))
             {
                 context.HttpContext.Response.StatusCode = 401;
-                var bytes = Encoding.UTF8.GetBytes(tokenModel.WarnInfo);
+                var bytes = Encoding.UTF8.GetBytes(warnInfo);
                 await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
                 var error = new UnauthenticatedError($"{tokne} Token enters the blacklist");
                 return new ErrorResponse(error);
@@ -69,10 +69,10 @@ namespace Ocelot.Security.AuthorizationToken
                             continue;
                         foreach (var item in tokens)
                         {
-                            if (_cache.TryGetValue(item.Token, out AuthorizationToken model))
+                            if (_cache.TryGetValue(item.Token, out string warnInfo))
                                 continue;
 
-                            _cache.Set(item.Token, item, new MemoryCacheEntryOptions()
+                            _cache.Set(item.Token, item.WarnInfo, new MemoryCacheEntryOptions()
                             {
                                 AbsoluteExpiration = item.Expiration
                             });
