@@ -27,11 +27,11 @@ namespace Ocelot.Security.AuthorizationToken.Storage
             modelBuilder.Entity<AuthorizationToken>(b =>
             {
                 b.ToTable("Ocelot_SecurityToken");
-                b.HasKey(f => f.Token);
-                b.Property(f => f.Token).HasMaxLength(1000).IsRequired();
+                b.HasKey(f => f.Id);
+                b.Property(f => f.Token).HasMaxLength(2000).IsRequired();
                 b.Property(f => f.WarnInfo).HasMaxLength(1000);
                 b.Property(f => f.Expiration).IsRequired();
-                b.Property(f => f.AddTime).HasDefaultValue(DateTime.Now).IsRequired();
+                b.Property(f => f.AddTime).IsRequired();
             });
             base.OnModelCreating(modelBuilder);
         }

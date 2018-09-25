@@ -9,7 +9,6 @@ namespace Ocelot.DependencyInjection
     {
         public static IOcelotBuilder AddSecurityAuthorizationToken(this IOcelotBuilder builder)
         {
-            //builder.Services.AddSingleton<OcelotSecurityStorageDbContent>();
             builder.Services.AddSingleton<IAuthorizationTokenStorage, AuthorizationTokenStorage>();
             builder.Services.AddSingleton<ISecurityPolicy, AuthorizationTokenSecurityPolicy>();
             return builder;

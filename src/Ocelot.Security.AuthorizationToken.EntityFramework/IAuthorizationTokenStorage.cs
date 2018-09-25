@@ -7,6 +7,6 @@ namespace Ocelot.Security.AuthorizationToken
 {
     public interface IAuthorizationTokenStorage
     {
-        Task<List<AuthorizationToken>> GetList(DateTime refreshTime);
+        Task<List<AuthorizationToken>> GetList(long lastId);
     }
 }

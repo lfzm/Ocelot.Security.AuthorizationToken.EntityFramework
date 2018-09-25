@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections.Concurrent;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using Ocelot.Middleware;
 using Ocelot.Responses;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Primitives;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
-using Microsoft.Extensions.Logging;
-using System.IO;
+using System.Threading.Tasks;
 
 namespace Ocelot.Security.AuthorizationToken
 {
@@ -21,6 +20,7 @@ namespace Ocelot.Security.AuthorizationToken
         private DateTime refreshTime = DateTime.Now.AddYears(-5);
         private int isProcessing = 0;
         private int tokenRefreshInterval = 5000;
+        private long lastId = 0;
         public AuthorizationTokenSecurityPolicy(IMemoryCache cache, IAuthorizationTokenStorage storage, ILogger<AuthorizationTokenSecurityPolicy> logger)
         {
             _cache = cache;
@@ -38,14 +38,14 @@ namespace Ocelot.Security.AuthorizationToken
 
             if (_cache.TryGetValue(tokne, out AuthorizationToken tokenModel))
             {
-                //context.HttpContext.Response.StatusCode = 401;
-                //var bytes = Encoding.UTF8.GetBytes(tokenModel.WarnInfo);
-                //await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
+                context.HttpContext.Response.StatusCode = 401;
+                var bytes = Encoding.UTF8.GetBytes(tokenModel.WarnInfo);
+                await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
                 var error = new UnauthenticatedError($"{tokne} Token enters the blacklist");
                 return new ErrorResponse(error);
             }
             else
-                return new OkResponse();
+                return await Task.FromResult(new OkResponse());
         }
 
         private void LoadBlacklistToken()
@@ -62,10 +62,9 @@ namespace Ocelot.Security.AuthorizationToken
                 {
                     while (true)
                     {
-                        DateTime _rtime = refreshTime;
                         refreshTime = DateTime.Now;
                         Task.Delay(tokenRefreshInterval).Wait();
-                        IList<AuthorizationToken> tokens = await _storage.GetList(_rtime);
+                        IList<AuthorizationToken> tokens = await _storage.GetList(lastId);
                         if (tokens == null || tokens.Count == 0)
                             continue;
                         foreach (var item in tokens)
@@ -78,6 +77,7 @@ namespace Ocelot.Security.AuthorizationToken
                                 AbsoluteExpiration = item.Expiration
                             });
                         }
+                        lastId = tokens.LastOrDefault().Id;
                     }
                 }
                 catch (Exception ex)
