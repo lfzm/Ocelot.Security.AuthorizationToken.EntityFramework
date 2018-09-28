@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6F1A4BEC-C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.Security.AuthorizationToken.EntityFramework", "src\Ocelot.Security.AuthorizationToken.EntityFramework\Ocelot.Security.AuthorizationToken.EntityFramework.csproj", "{BA72DA62-4B6E-42CE-8794-6BE052C7704E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.Security.AuthorizationToken.EntityFramework.Test", "test\Ocelot.Security.AuthorizationToken.EntityFramework.Test\Ocelot.Security.AuthorizationToken.EntityFramework.Test.csproj", "{C0F2599D-A69B-4203-8897-48BFB5438476}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{A199E9CB-F4EB-4634-A6F2-C5A853A711AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,12 +23,17 @@ Global
 		{BA72DA62-4B6E-42CE-8794-6BE052C7704E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA72DA62-4B6E-42CE-8794-6BE052C7704E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA72DA62-4B6E-42CE-8794-6BE052C7704E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0F2599D-A69B-4203-8897-48BFB5438476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0F2599D-A69B-4203-8897-48BFB5438476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0F2599D-A69B-4203-8897-48BFB5438476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0F2599D-A69B-4203-8897-48BFB5438476}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BA72DA62-4B6E-42CE-8794-6BE052C7704E} = {D366C3A8-A6AE-4AFE-92EC-BB420E9A186C}
+		{C0F2599D-A69B-4203-8897-48BFB5438476} = {6F1A4BEC-CEB6-4F5F-B190-7DCC95C77003}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {441AF502-A9F4-4405-BEE9-E99A4CB3694D}
