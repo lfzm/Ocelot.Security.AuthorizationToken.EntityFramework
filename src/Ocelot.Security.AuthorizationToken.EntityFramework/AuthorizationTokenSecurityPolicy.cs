@@ -19,7 +19,7 @@ namespace Ocelot.Security.AuthorizationToken
         private readonly IAuthorizationTokenStorage _storage;
         private DateTime refreshTime = DateTime.Now.AddYears(-5);
         private int isProcessing = 0;
-        private int tokenRefreshInterval = 5000;
+        private int tokenRefreshInterval = 1000;
         private long lastId = 0;
         public AuthorizationTokenSecurityPolicy(IMemoryCache cache, IAuthorizationTokenStorage storage, ILogger<AuthorizationTokenSecurityPolicy> logger)
         {
