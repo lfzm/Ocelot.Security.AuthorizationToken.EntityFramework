@@ -14,9 +14,16 @@ namespace Ocelot.DependencyInjection
         {
             builder.Services.AddSingleton<IAuthorizationTokenStorage, AuthorizationTokenStorage>();
             builder.Services.AddSingleton<ISecurityPolicy, AuthorizationTokenSecurityPolicy>();
-            builder.Services.AddDbContext<OcelotSecurityStorageDbContent>(optionsAction);
+            builder.Services.AddDbContext<TDbContent>(optionsAction);
             return builder;
         }
 
+        public static IOcelotBuilder AddSecurityAuthorizationToken(this IOcelotBuilder builder, Action<DbContextOptionsBuilder> optionsAction)
+        {
+            builder.Services.AddSingleton<IAuthorizationTokenStorage, AuthorizationTokenStorage>();
+            builder.Services.AddSingleton<ISecurityPolicy, AuthorizationTokenSecurityPolicy>();
+            builder.Services.AddDbContext<OcelotSecurityStorageDbContent>(optionsAction);
+            return builder;
+        }
     }
 }
