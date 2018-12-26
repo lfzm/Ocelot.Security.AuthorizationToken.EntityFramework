@@ -30,10 +30,18 @@ namespace Ocelot.Security.AuthorizationToken
 
         public async Task<Response> Security(DownstreamContext context)
         {
-            if (!context.HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues value))
-                return new OkResponse();
-            string tokne = value.ToString().Replace("Bearer ", "");
+            string authorization = context.HttpContext.Request.Headers["Authorization"];
 
+            // If no authorization header found, nothing to process further
+            if (string.IsNullOrEmpty(authorization))
+            {
+                return new OkResponse();
+            }
+            string tokne = string.Empty;
+            if (authorization.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                tokne = authorization.Substring("Bearer ".Length).Trim();
+            }
             this.LoadBlacklistToken();
 
             if (_cache.TryGetValue(tokne, out string warnInfo))
