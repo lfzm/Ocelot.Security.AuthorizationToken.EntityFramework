@@ -18,7 +18,7 @@ namespace Ocelot.Security.AuthorizationToken.Storage
 
         public Task<List<AuthorizationToken>> GetList(long lastId)
         {
-            this._dbContent.Database.ExecuteSqlCommand("DELETE FROM Ocelot_SecurityToken WHERE  Expiration< '" + DateTime.Now + "'");
+            this._dbContent.Database.ExecuteSqlCommand("DELETE FROM Ocelot_SecurityToken WHERE  Expiration< '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ffff ") + "'");
             return _dbContent.AuthorizationTokens.Where(f => f.Id >= lastId).ToListAsync();
         }
     }
