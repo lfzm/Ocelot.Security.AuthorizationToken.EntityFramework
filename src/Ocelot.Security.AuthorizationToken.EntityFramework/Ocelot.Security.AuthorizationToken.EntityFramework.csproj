@@ -10,7 +10,7 @@
     <Authors>阿凌</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>Ocelot Security Authorization Token Blacklist EntityFramework Storage</PackageTags>
-    <Version>1.0.4-deta1</Version>
+    <Version>1.1.0-rc1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.3" />
-    <PackageReference Include="Ocelot" Version="12.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.4" />
+    <PackageReference Include="Ocelot" Version="13.5.2" />
   </ItemGroup>
 
 </Project>
