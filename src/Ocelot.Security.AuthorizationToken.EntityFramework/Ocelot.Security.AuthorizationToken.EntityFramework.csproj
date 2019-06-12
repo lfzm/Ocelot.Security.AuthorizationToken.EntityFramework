@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -10,7 +10,7 @@
     <Authors>阿凌</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>Ocelot Security Authorization Token Blacklist EntityFramework Storage</PackageTags>
-    <Version>1.0.3</Version>
+    <Version>1.0.4-deta1</Version>
   </PropertyGroup>
 
   <ItemGroup>
