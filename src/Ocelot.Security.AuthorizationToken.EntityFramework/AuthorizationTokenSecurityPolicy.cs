@@ -64,11 +64,11 @@ namespace Ocelot.Security.AuthorizationToken
             }
             if (Interlocked.CompareExchange(ref isProcessing, 1, 0) == 1)
                 return;
-            Task.Run(async () =>
+            new Task(async () =>
             {
-                try
+                while (true)
                 {
-                    while (true)
+                    try
                     {
                         refreshTime = DateTime.Now;
                         Task.Delay(tokenRefreshInterval).Wait();
@@ -87,16 +87,12 @@ namespace Ocelot.Security.AuthorizationToken
                         }
                         lastId = tokens.LastOrDefault().Id;
                     }
+                    catch (Exception ex)
+                    {
+                        this._logger.LogError(ex, "Loading AuthorizationToken blacklist failed");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    this._logger.LogError(ex, "Loading AuthorizationToken blacklist failed");
-                }
-                finally
-                {
-                    Interlocked.Exchange(ref isProcessing, 0);
-                }
-            }).ConfigureAwait(false);
+            }).Start();
         }
     }
 }
